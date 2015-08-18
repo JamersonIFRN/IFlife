@@ -1,0 +1,2 @@
+O que é um direção de um vetor?@Indica para onde aponta o vetor.-É a inclinação do vetor.-É a intensidade do vetor.-Indica o quanto sente o vetor.@1
+Se 2 sistemas A e B estão em equilíbrio térmico com um terceiro sistema C, então A e b estão em equilíbrio entre si?@Não-Sim-Apenas A-Apenas B@2

@@ -1,0 +1,2 @@
+Qual a área de um cubo de arestas igual a X, sabendo que 2X-X+4=9?@125 -729-25-27@1
+Se eu jogar um dado qual a probabilidade de sair 2,4 ou 6?@25%-30%-50%-75%@3

@@ -1,0 +1,10 @@
+Qualquer poligono de quatro lados-Quadrilatero@
+Forma geometrica que possui dois lados congruentes-Losango@
+Composto por dois eixos, x e y-Plano Cartesiano@
+Tabela de números dispostos em linhas e colunas-Matriz@
+Solido geometrico que possui quatro faces-Tetraedo@
+Razão centesimal representada pelo simbolo %-porcentagem@
+Ângulo de 90º-Reto@
+Maior lado de um triângulo retangulo-Hipotenusa@
+Valor absoluto de um número-Modulo@
+Conjunto do números negativos-Inteiros@

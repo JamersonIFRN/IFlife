@@ -1,0 +1,48 @@
+while (!tela.isCont()) {
+
+                    mexe = tela.isCont();
+                    if (pprofs[i]) {
+                        System.out.println("qwerty a" + mexe);
+                        mario.setPersonagemj(mario.getReferencia());
+                        mario.setDx(0);
+                        mario.setDxm(0);
+                        mario.setDxp(0);
+                        mario.setDxb(0);
+                        mario.setDxc(0);
+                        tela.setvisevel(true);
+                        pprofs[i] = false;
+                    }
+                }
+                tela.dispose();
+
+
+ for (int i = 0; i < mario.getNumProfs(); i++) {
+            pprofs[i] = true;
+        }
+
+
+
+ pprofs = new boolean[mario.getNumProfs()];
+
+boolean pprofs[];
+
+
+    if (pprofs[i]) {
+                    mexe = tl.isCont();
+                }
+                if (tl.isCont()) {
+                    tl.setVisible(false);
+                    tl.setCont(false);
+                    cont=true;
+                    pprofs[i] = false;
+                }
+                if (cont && pprofs[i]) {
+                    mario.setPersonagemj(mario.getReferencia());
+                    mario.setDx(0);
+                    mario.setDxm(0);
+                    mario.setDxp(0);
+                    mario.setDxb(0);
+                    mario.setDxc(0);
+                    tl.setvisevel(true);
+                    cont = false;
+                }

@@ -1,0 +1,2 @@
+Quais são escalas de temperatura?@Celsius-faraday-Kelvin-ampere-Fahrenheit-Kelvin-Ampere-celsius@3
+Qual é a famosa lei de ohm?@	I=V/R-V=I/R-R=L/A-P=V.I@1
