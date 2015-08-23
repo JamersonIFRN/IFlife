@@ -29,6 +29,10 @@ import javax.swing.Timer;
 public class Fase extends JPanel implements ActionListener {
 
     private Personagem mario;
+    private Buraco buraco;
+    Mundo mundo;
+    Professores professores;
+    PortaDaTutoria porta;
     public Timer timer, esperarsalvar;
     private boolean mexe = true, caiu = false, passouTutoria = false, chegouNaPorta = false, passouVirus = false, chegouvirus = false;
     private boolean cont = true, emjogo = true, podecarregar = true;
@@ -52,9 +56,13 @@ public class Fase extends JPanel implements ActionListener {
         addKeyListener(new TecladoAdapter());
 
         mario = new Personagem();
-        pprofs = new boolean[mario.getNumProfs()];
-        passouNasMaterias = new boolean[mario.getNumProfs()];
-        perguntas = new String[mario.getNumProfs()];
+        buraco = new Buraco();
+        mundo = new Mundo();
+        professores = new Professores();
+        porta = new PortaDaTutoria();
+        pprofs = new boolean[professores.getNumProfs()];
+        passouNasMaterias = new boolean[professores.getNumProfs()];
+        perguntas = new String[professores.getNumProfs()];
         String arquivo = "Res/Cursos/" + endereço + "/perguntas.txt", linha, f = "";
         try {
             FileReader fr = new FileReader(arquivo);
@@ -80,7 +88,7 @@ public class Fase extends JPanel implements ActionListener {
         }
         arquivo = "Res/Cursos/" + endereço + "/materias.txt";
         f = "";
-        materias = new String[mario.getNumProfs()];
+        materias = new String[professores.getNumProfs()];
 
         try {
             FileReader fr = new FileReader(arquivo);
@@ -104,11 +112,11 @@ public class Fase extends JPanel implements ActionListener {
         for (int i = 0; i < materias.length; i++) {
             materias[i] = materiastxt[i];
         }
-        mario.setmaterias(materias);
+        professores.setmaterias(materias);
         if (carregar) {
             carregarJ(true);
         } else {
-            for (int i = 0; i < mario.getNumProfs(); i++) {
+            for (int i = 0; i < professores.getNumProfs(); i++) {
                 pprofs[i] = true;
                 passouNasMaterias[i] = false;
             }
@@ -123,17 +131,17 @@ public class Fase extends JPanel implements ActionListener {
 
         setFocusable(true);
         setDoubleBuffered(true);
-        graficos.drawImage(mario.getImagem2(), mario.getXm(), mario.getYm(), this);
+        graficos.drawImage(mundo.getImagem2(), mundo.getXm(), mundo.getYm(), this);
         graficos.setFont(new Font("Arial Narrow", 1, 20));
 
         int u = 0;
         for (int i = 0; i <= 10; i++) {
-            graficos.drawImage(mario.getImagem4(), mario.getXb() + u, mario.getYb(), this);
+            graficos.drawImage(buraco.getImagem4(), buraco.getXb() + u, buraco.getYb(), this);
             u += 2500;
         }
         u = 0;
         for (int i = 0; i <= 10; i++) {
-            graficos.drawImage(mario.getImagem6(), mario.getXb() - 32 + u, mario.getYb() - 739, this);
+            graficos.drawImage(buraco.getImagem6(), buraco.getXb() - 32 + u, buraco.getYb() - 739, this);
             u += 2500;
         }
         graficos.setColor(Color.DARK_GRAY);
@@ -147,12 +155,12 @@ public class Fase extends JPanel implements ActionListener {
         graficos.setColor(Color.red);
         graficos.drawString("Atenção, precisa ser aprovado em 7 materias", 5, 85);
         u = 0;
-        Image profs[] = mario.getProfs();
-        for (int i = 0; i < mario.getNumProfs(); i++) {
-            graficos.drawImage(profs[i], mario.getXp() + u, mario.getYp(), this);
+        Image profs[] = professores.getProfs();
+        for (int i = 0; i < professores.getNumProfs(); i++) {
+            graficos.drawImage(profs[i], professores.getXp() + u, professores.getYp(), this);
             u += 2500;
         }
-        graficos.drawImage(mario.getImagemTutoria(), mario.getXt(), mario.getYt(), this);
+        graficos.drawImage(porta.getImagemTutoria(), porta.getXt(), porta.getYt(), this);
         //graficos.drawImage(mario.getImagem3(), mario.getXp(), mario.getYp(), this);
         graficos.drawImage(mario.getImagem(), mario.getX(), mario.getY(), this);
         Image img;
@@ -198,7 +206,12 @@ public class Fase extends JPanel implements ActionListener {
                 String setvar[] = f.split("@");
                 String xms[] = setvar[1].split("\n");
                 mario.setXs(Integer.parseInt(xms[0]), Integer.parseInt(xms[1]), Integer.parseInt(xms[2]), Integer.parseInt(xms[3]));
-                mario.setXms(Integer.parseInt(xms[4]), Integer.parseInt(xms[5]), Integer.parseInt(xms[6]), Integer.parseInt(xms[7]), Integer.parseInt(xms[8]));
+                porta.setXt(Integer.parseInt(xms[8]));
+                mario.setXms(Integer.parseInt(xms[7]));
+                buraco.setXb(Integer.parseInt(xms[6]));
+                professores.setXp(Integer.parseInt(xms[5]));
+                mundo.setXm(Integer.parseInt(xms[4]));
+
                 if (vidasc) {
                     vidas = Integer.parseInt(xms[9]);
                 } else {
@@ -232,11 +245,12 @@ public class Fase extends JPanel implements ActionListener {
     public void zerarDxsPersonagem() {
         mario.setPersonagemj(mario.getReferencia());
         mario.setDx(0);
+        mundo.setDxm(0);
         mario.setDxm(0);
-        mario.setDxp(0);
-        mario.setDxb(0);
+        professores.setDxp(0);
+        buraco.setDxb(0);
         mario.setDxc(0);
-        mario.setDxt(0);
+        porta.setDxt(0);
     }
 
     public void salvarJogo() {
@@ -254,28 +268,28 @@ public class Fase extends JPanel implements ActionListener {
             bw.newLine();
             bw.write("" + mario.getX3());
             bw.newLine();
-            bw.write("" + mario.getXm());
+            bw.write("" + mundo.getXm());
             bw.newLine();
-            bw.write("" + mario.getXp());
+            bw.write("" + professores.getXp());
             bw.newLine();
-            bw.write("" + mario.getXb());
+            bw.write("" + buraco.getXb());
             bw.newLine();
             bw.write("" + mario.getXc());
             bw.newLine();
-            bw.write("" + mario.getXt() + "");
+            bw.write("" + porta.getXt() + "");
             bw.newLine();
             bw.write("" + vidas);
             bw.write("@");
-            for (int i = 0; i < mario.getNumProfs(); i++) {
+            for (int i = 0; i < professores.getNumProfs(); i++) {
                 bw.write("" + pprofs[i]);
-                if (i != mario.getNumProfs() - 1) {
+                if (i != professores.getNumProfs() - 1) {
                     bw.newLine();
                 }
             }
             bw.write("@");
-            for (int i = 0; i < mario.getNumProfs(); i++) {
+            for (int i = 0; i < professores.getNumProfs(); i++) {
                 bw.write("" + passouNasMaterias[i]);
-                if (i != mario.getNumProfs() - 1) {
+                if (i != professores.getNumProfs() - 1) {
                     bw.newLine();
                 }
             }
@@ -288,12 +302,12 @@ public class Fase extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //("xm" + mario.getXm() + " x " + mario.getX());
-        if (mario.getXm() == -28920 && mario.getX() == 750 && mexe) {
+        System.out.println("xm" + mario.getXm() + " x " + mario.getX());
+        if (mundo.getXm() == -28920 && mario.getX() == 750 && mexe) {
             mexe = false;
             emjogo = false;
             SePassou sp = new SePassou();
-            sp.setNMaterias(mario.getNumProfs());
+            sp.setNMaterias(professores.getNumProfs());
             sp.setMaterias(materias);
             sp.setPassou(passouNasMaterias);
             sp.setVisible(m1);
@@ -303,10 +317,14 @@ public class Fase extends JPanel implements ActionListener {
         }
         if (mexe) {
             mario.mexer();
+            mundo.mexer();
+            buraco.mexer();
+            professores.mexer();
+            porta.mexer();
         }
         int u = 0;
         for (int i = 0; i <= 10; i++) {
-            if (mario.getBounds2().intersects(mario.getBoundsburaco(mario.getXb() + u))) {
+            if (mario.getBounds2().intersects(buraco.getBoundsburaco(buraco.getXb() + u))) {
                 if (!caiu) {
                     mario.setCaiu(true);
                     mario.caiuNoBuraco();
@@ -326,9 +344,9 @@ public class Fase extends JPanel implements ActionListener {
         }
 
         u = 0;
-        for (int i = 0; i < mario.getNumProfs(); i++) {
+        for (int i = 0; i < professores.getNumProfs(); i++) {
 
-            if (mario.getBoundsmario().intersects(mario.getBoundsprofessor(mario.getXp() + u))) {
+            if (mario.getBoundsmario().intersects(professores.getBoundsprofessor(professores.getXp() + u))) {
                 if (pprofs[i]) {
                     mexe = tl.isCont();
                     podecarregar = tl.isCont();
@@ -374,7 +392,7 @@ public class Fase extends JPanel implements ActionListener {
             u += 2500;
         }
         if (!passouVirus) {
-            if (mario.getBoundsmario().intersects(mario.getBoundstutoria(mario.getXt() - 785))) {
+            if (mario.getBoundsmario().intersects(porta.getBoundstutoria(porta.getXt() - 785))) {
                 if (!chegouvirus) {
                     anov = new AnoVirus();
                     chegouvirus = true;
@@ -394,7 +412,7 @@ public class Fase extends JPanel implements ActionListener {
             }
         }
         if (!passouTutoria) {
-            if (mario.getBoundsmario().intersects(mario.getBoundstutoria(mario.getXt()))) {
+            if (mario.getBoundsmario().intersects(porta.getBoundstutoria(porta.getXt()))) {
                 if (!chegouNaPorta) {
                     ano = new AnoTutoria();
                     c = new TelaCozinha();
@@ -517,6 +535,10 @@ public class Fase extends JPanel implements ActionListener {
                 if (m1 == false || m2 == false || m3 == false) {
                 }
                 mario.KeyPressed(e, m1, m2, m3);
+                mundo.KeyPressed(e, m1, m2, m3);
+                buraco.KeyPressed(e, m1, m2, m3);
+                professores.KeyPressed(e, m1, m2, m3);
+                porta.KeyPressed(e, m1, m2, m3);
             }
         }
 
@@ -528,6 +550,10 @@ public class Fase extends JPanel implements ActionListener {
         public void keyReleased(KeyEvent e) {
             if (mexe) {
                 mario.KeyReleased(e);
+                mundo.KeyReleased(e);
+                buraco.KeyReleased(e);
+                professores.KeyReleased(e);
+                porta.KeyReleased(e);
             }
         }
     }

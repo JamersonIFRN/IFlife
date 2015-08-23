@@ -13,19 +13,13 @@ public class Personagem {
 
     private int x, y, x1, y1, x2, y2, x3, y3;
     private int dx;
-    private int xm, ym;
-    private int dxm, dym;
-    private int xp, yp;
-    private int dxp, dyp;
-    private int xb, yb;
-    private int dxb, dyb;
+    private int xm;
+    private int dxm;
     private int xc, yc;
     private int xt, yt;
     private int dxc, dyc;
     private int dxt, dyt;
     private int altura, largura;
-    private int alturap, largurap;
-    private int alturab, largurab;
     private int altural, largural;
     private int altural2, largural2;
     private int alturaf, larguraf;
@@ -33,20 +27,15 @@ public class Personagem {
     private boolean m1 = true, m2 = true, m3 = true, apertouespaço = true, teminoudescida = true;
     static Map<String, ImageIcon> sprites = new HashMap<>();
     static ImageIcon referencia = new ImageIcon("Res/personagemParado.png");
-    static ImageIcon referencia2 = new ImageIcon("Res/FUNDOAmarelo.png");
     static ImageIcon referencia3 = new ImageIcon("Res/personagem.gif");
     static ImageIcon referencia4 = new ImageIcon("Res/personagem2.gif");
     static ImageIcon referencia5 = new ImageIcon("Res/personagemCotrario.png");
     static ImageIcon referencia6 = new ImageIcon("Res/mariopular.gif");
-    static ImageIcon referencia7 = new ImageIcon("Res/Criação dos professores e dos personagens/Padrão.png");
-    static ImageIcon referencia8 = new ImageIcon("Res/buraco.png");
     static ImageIcon referencia10 = new ImageIcon("Res/porta.png");
-    static ImageIcon referencia11 = new ImageIcon("Res/betoneira.png");
     ImageIcon image = new ImageIcon("Res/lado.png");
     ImageIcon image2 = new ImageIcon("Res/lado.png");
     ImageIcon image3 = new ImageIcon("Res/fund.png");
-    private Image personagemj, mundo, professor, buraco, buracob, ima1, ima2, ima3, porta;
-    private Image[] profs = new Image[10];
+    private Image personagemj, mundo, ima1, ima2, ima3, porta;
     //private Map<String, ImageIcon> mapa = new HashMap<>();
     Timer t;
     Timer timer, queda;
@@ -57,21 +46,13 @@ public class Personagem {
 
     public Personagem() {
         IniciarImages();
-        mundo = referencia2.getImage();
         personagemj = referencia.getImage();
-        professor = referencia7.getImage();
-        buraco = referencia8.getImage();
-        buracob = referencia11.getImage();
         porta = referencia10.getImage();
         ima1 = image.getImage();
         ima2 = image3.getImage();
         ima3 = image2.getImage();
         altura = personagemj.getHeight(null);
         largura = personagemj.getWidth(null);
-        alturap = professor.getHeight(null);
-        largurap = professor.getWidth(null);
-        alturab = buraco.getHeight(null);
-        largurab = buraco.getWidth(null);
         largural = ima1.getWidth(null);
         altural = ima1.getHeight(null);
         larguraf = ima2.getWidth(null);
@@ -90,85 +71,15 @@ public class Personagem {
         this.x3 = 70;
         this.y3 = 370;
         this.xm = 0;
-        this.ym = -30;
-        this.xp = 1000;
-        this.yp = 270;
-        this.xb = 2253;
-        this.yb = 575;
         this.xc = 2666;
         this.yc = 410;
         this.xt = 28666;
         this.yt = 375;
     }
 
-    public void setmaterias(String materias[]) {
-        for (int i = 0; i < materias.length; i++) {
-            if (materias[i].equalsIgnoreCase("Matemática")) {
-                referencia7 = new ImageIcon("Res/Criação dos professores e dos personagens/matematica.png");
-                profs[i] = referencia7.getImage();
-            } else if (materias[i].equalsIgnoreCase("Física")) {
-                referencia7 = new ImageIcon("Res/Criação dos professores e dos personagens/fisica.png");
-                profs[i] = referencia7.getImage();
-            } else if (materias[i].equalsIgnoreCase("Português")) {
-                referencia7 = new ImageIcon("Res/Criação dos professores e dos personagens/portugues.png");
-                profs[i] = referencia7.getImage();
-            } else if (materias[i].equalsIgnoreCase("Ed. Fisica")) {
-                referencia7 = new ImageIcon("Res/Criação dos professores e dos personagens/Ed.Fisica.png");
-                profs[i] = referencia7.getImage();
-            } else if (materias[i].equalsIgnoreCase("Artes I") || materias[i].equalsIgnoreCase("Artes II")) {
-                referencia7 = new ImageIcon("Res/Criação dos professores e dos personagens/Artes.png");
-                profs[i] = referencia7.getImage();
-            } else if (materias[i].equalsIgnoreCase("Sooiologia")) {
-                referencia7 = new ImageIcon("Res/Criação dos professores e dos personagens/Sociologia.png");
-                profs[i] = referencia7.getImage();
-            } else if (materias[i].equalsIgnoreCase("Espanhol")) {
-                referencia7 = new ImageIcon("Res/Criação dos professores e dos personagens/Espanhol.png");
-                profs[i] = referencia7.getImage();
-            } else if (materias[i].equalsIgnoreCase("Inglês")) {
-                referencia7 = new ImageIcon("Res/Criação dos professores e dos personagens/ingles.png");
-                profs[i] = referencia7.getImage();
-            } else if (materias[i].equalsIgnoreCase("Geografia")) {
-                referencia7 = new ImageIcon("Res/Criação dos professores e dos personagens/Geografia.png");
-                profs[i] = referencia7.getImage();
-            } else if (materias[i].equalsIgnoreCase("História")) {
-                referencia7 = new ImageIcon("Res/Criação dos professores e dos personagens/Historia.png");
-                profs[i] = referencia7.getImage();
-            } else if (materias[i].equalsIgnoreCase("Filosofia")) {
-                System.out.println("ahhhh" + materias[i]);
-                referencia7 = new ImageIcon("Res/Criação dos professores e dos personagens/Filosofia.png");
-                profs[i] = referencia7.getImage();
-            } else if (materias[i].equalsIgnoreCase("Química")) {
-                referencia7 = new ImageIcon("Res/Criação dos professores e dos personagens/quimica.png");
-                profs[i] = referencia7.getImage();
-            } else if (materias[i].equalsIgnoreCase("Biologia")) {
-                referencia7 = new ImageIcon("Res/Criação dos professores e dos personagens/biologia.png");
-                profs[i] = referencia7.getImage();
-            } else {
-                referencia7 = new ImageIcon("Res/Criação dos professores e dos personagens/Padrão.png");
-                profs[i] = referencia7.getImage();
-            }
-        }
-    }
-
     public void caiuRestartSpace() {
         teminoudescida = true;
         apertouespaço = true;
-    }
-
-    public Image[] getProfs() {
-        return profs;
-    }
-
-    public int getNumProfs() {
-        return profs.length;
-    }
-
-    public int getLargp() {
-        return largurap;
-    }
-
-    public int getAltp() {
-        return alturap;
     }
 
     public void mexer() {
@@ -202,11 +113,6 @@ public class Personagem {
             }
         }
         xm += dxm;
-        ym += dym;
-        xp += dxp;
-        yp += dyp;
-        xb += dxb;
-        yb += dyb;
         xc += dxc;
         yc += dyc;
         xt += dxt;
@@ -278,12 +184,8 @@ public class Personagem {
 
     }
 
-    public void setXms(int xm, int xp, int xb, int xc, int xt) {
-        this.xm = xm;
-        this.xp = xp;
-        this.xb = xb;
+    public void setXms(int xc) {
         this.xc = xc;
-        this.xt = xt;
     }
 
     public void setXs(int x, int x1, int x2, int x3) {
@@ -307,14 +209,6 @@ public class Personagem {
 
     public void setDxm(int dxm) {
         this.dxm = dxm;
-    }
-
-    public void setDxp(int dxp) {
-        this.dxp = dxp;
-    }
-
-    public void setDxb(int dxb) {
-        this.dxb = dxb;
     }
 
     public void setDxc(int dxc) {
@@ -363,6 +257,10 @@ public class Personagem {
         return x;
     }
 
+    public int getXm() {
+        return xm;
+    }
+
     public int getY() {
         return y;
     }
@@ -391,36 +289,12 @@ public class Personagem {
         return y3;
     }
 
-    public int getXm() {
-        return xm;
-    }
-
-    public int getYm() {
-        return ym;
-    }
-
-    public int getXp() {
-        return xp;
-    }
-
-    public int getYp() {
-        return yp;
-    }
-
-    public int getXb() {
-        return xb;
-    }
-
     public int getXc() {
         return xc;
     }
 
     public int getXt() {
         return xt;
-    }
-
-    public int getYb() {
-        return yb;
     }
 
     public int getYc() {
@@ -437,18 +311,6 @@ public class Personagem {
 
     public Image getImagem2() {
         return mundo;
-    }
-
-    public Image getImagem3() {
-        return professor;
-    }
-
-    public Image getImagem4() {
-        return buraco;
-    }
-
-    public Image getImagem6() {
-        return buracob;
     }
 
     public Image getIma1() {
@@ -483,18 +345,8 @@ public class Personagem {
         return new Rectangle(x, y, largura, altura);
     }
 
-    public Rectangle getBoundsprofessor(int x) {
-        return new Rectangle(x + 370, yp, largurap, alturap);
-
-    }
-
-    public Rectangle getBoundsburaco(int x) {
-        return new Rectangle(x + 80, yb, largurab - 135, alturab);
-    }
-
     public Rectangle getBoundstutoria(int x) {
         return new Rectangle(x, yc, largurat, alturat);
-
     }
 
     public void KeyPressed(KeyEvent tecla, boolean m1, boolean m2, boolean m3) {
@@ -523,8 +375,6 @@ public class Personagem {
             ultimoLadoApertado = "d";
             if (x >= 5) {
                 dxm = -15;
-                dxp = -15;
-                dxb = -15;
                 dxc = -15;
                 dxt = -15;
             }
@@ -559,8 +409,6 @@ public class Personagem {
             apertouLadoDireiro = false;
             dx = 0;
             dxm = 0;
-            dxp = 0;
-            dxb = 0;
             dxc = 0;
             dxt = 0;
         }
@@ -576,7 +424,5 @@ public class Personagem {
         referencia = new ImageIcon(img.getCaminho());
         img.setarJogo("faseparadotraz");
         referencia5 = new ImageIcon(img.getCaminho());
-        img.setarJogo("fundo");
-        referencia2 = new ImageIcon(img.getCaminho());
     }
 }
